@@ -2,4 +2,4 @@
 
 ## Calculation of Measles-Values
 
-![plot](newplot.png)
+![plot](measles_number.png)
