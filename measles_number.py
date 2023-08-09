@@ -21,7 +21,7 @@ def main():
 
     d: list = []
 
-    for k in np.arange(1.90, feedback_target, feedback_step):
+    for k in np.arange(1.90, feedback_target + feedback_step, feedback_step):
         population = p
         skip = 275
         for i in range(maximal_iteration):
@@ -36,6 +36,7 @@ def main():
     fig = px.scatter(df, x='feedback',  y='terminal_population')
     fig.update_traces(marker=dict(size=1, line=dict(width=1, color="Black")),
                       selector=dict(mode='markers'))
+    fig.update_layout(xaxis_range=[1.90, 3], yaxis_range=[0, 1.5])
     fig.show()
 
 
