@@ -15,22 +15,27 @@ def main():
     p: float = 0.3
 
     feedback_target: float = 3.5
-    feedback_step: float = 0.5
+    feedback_step: float = 0.0001
 
-    maximal_iteration: int = 10
+    maximal_iteration: int = 300
 
     d: list = []
 
-    for k in np.arange(0.5, feedback_target, feedback_step):
+    for k in np.arange(1.90, feedback_target, feedback_step):
         population = p
+        skip = 275
         for i in range(maximal_iteration):
             population = f(population, k)
-            d.append([k, p, population])
+            if skip > 0:
+                skip -= 1
+            if skip == 0:
+                d.append([k, population])
 
     df = pd.DataFrame(
-        data=d, columns=['feedback', 'initial_population', 'terminal_population'])
-    fig = px.scatter_3d(df, x='feedback', y='initial_population',
-                        z='terminal_population')
+        data=d, columns=['feedback', 'terminal_population'])
+    fig = px.scatter(df, x='feedback',  y='terminal_population')
+    fig.update_traces(marker=dict(size=1, line=dict(width=1, color="Black")),
+                      selector=dict(mode='markers'))
     fig.show()
 
 
